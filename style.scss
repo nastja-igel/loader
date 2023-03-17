@@ -1,0 +1,81 @@
+/* Main Rules */
+ @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+ 
+ /*Variables*/
+ 
+ $color-background:#C8CDDD;
+ $color-text:#2D3A67;
+ $color-feature:#FFFFFF;
+ 
+ /*Infinite Chars colors (Loading text color)*/
+
+ @mixin infiniteCharColors ($loopTimes) {
+     @for $i from 1 through $loopTimes {
+         &:nth-child(#{$i}) {
+             $delayTime: 150 * $i +ms;
+             display: inline-block;
+             animation-name: charColor;
+             animation-iteration-count: infinite;
+             animation-duration: 2.5s;
+             animation-delay: $delayTime;
+             animation-timing-function: ease;
+             animation-fill-mode: both;
+             backface-visibility: hidden;
+         }
+     }
+ }
+ @keyframes charColor {
+     0% {
+         color: lighten($color-text, 26%);
+     }
+     50% {
+         color: $color-feature;
+     }
+     100% {
+         color: lighten($color-text, 26%);
+     }
+ }
+ 
+ body{
+   font-family: 'Open Sans', sans-serif;
+   font-weight:800;
+ }
+ 
+ /*LoadingScreen Style*/
+ 
+ .loadingScreen {
+     position: fixed;
+     height: 100%;
+     width: 100%;
+     left: 0;
+     right: 0;
+     top: 0;
+     bottom: 0;
+     z-index: 900000;
+     overflow: hidden;
+     background: $color-background;
+ 
+     .loadingScreen__text {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         position: absolute;
+         left: 0;
+         right: 0;
+         top: 0;
+         bottom: 0;
+         margin: auto;
+         text-align: center;
+         width: auto;
+         height: 100px;
+         color: $color-text;
+         text-transform: uppercase;
+       font-size:64px;
+         .loadingScreen__text__span {
+             @include infiniteCharColors(9);
+             padding: 5px;
+             vertical-align: middle;
+         }
+     }
+ }
+ 
